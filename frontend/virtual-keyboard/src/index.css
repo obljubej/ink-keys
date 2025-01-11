@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.white-key {
+  @apply border border-black w-20 h-48 bg-white text-red-500 text-center flex items-end justify-center;
+}
