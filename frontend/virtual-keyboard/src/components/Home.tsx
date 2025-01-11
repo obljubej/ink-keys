@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-800 via-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-grey via-purple-100 to-purple-100 text-white">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center h-screen text-center px-4">
         <h1 className="text-6xl font-extrabold mb-4 drop-shadow-lg">

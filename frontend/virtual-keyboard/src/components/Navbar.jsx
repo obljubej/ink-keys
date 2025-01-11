@@ -6,7 +6,13 @@ const Navbar = () => {
   return (
     <nav className="flex items-center justify-between w-full px-6 py-4 bg-gradient-to-br from-blue-800 via-gray-900 to-black text-white shadow-lg">
       {/* Title */}
-      <h1 className="text-3xl font-bold">Virtual Keyboard</h1>
+        <Link
+            to="/"
+            className=""
+          >
+            <h1 className="text-3xl font-bold  hover:text-gray-400 transition duration-300">Virtual Keyboard</h1>
+          </Link>
+      
 
       {/* Navigation Links */}
       <div className="flex items-center gap-8">

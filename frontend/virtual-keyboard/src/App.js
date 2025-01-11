@@ -13,7 +13,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/play" element={<Play />} />
         <Route path="/create" element={<Create />} />
-        <Route path="*" element={<h1 className="text-center mt-20">Page Not Found</h1>} />
+        <Route path="*" element={<div className="flex flex-col h-screen justify-center items-center bg-gray-900">
+    <h1 className="text-6xl font-bold text-pale-50 mb-4">404</h1>
+    <h2 className="text-2xl text-grey mb-8">Page Not Found</h2>
+    <a href="/" className="text-grey hover:underline">Go back to Home</a>
+  </div>} />
       </Routes>
     </Router>
   );
