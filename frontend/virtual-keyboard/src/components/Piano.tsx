@@ -18,27 +18,54 @@ import {
 
 const Piano = () => {
   return (
-    
     <div className="piano-page">
-      <h1>Piano</h1>
+      <h1 className="text-center text-4xl font-bold my-8">Piano</h1>
       <div className="piano">
-      <div className="white-key" onClick={playC4}>C</div>
-        <div className="black-key" onClick={playDb4}>Db</div>
-        <div className="white-key" onClick={playD4}>D</div>
-        <div className="black-key" onClick={playEb4}>Eb</div>
-        <div className="white-key" onClick={playE4}>E</div>
-        <div className="white-key" onClick={playF4}>F</div>
-        <div className="black-key" onClick={playGb4}>Gb</div>
-        <div className="white-key" onClick={playG4}>G</div>
-        <div className="black-key" onClick={playAb4}>Ab</div>
-        <div className="white-key" onClick={playA4}>A</div>
-        <div className="black-key" onClick={playBb4}>Bb</div>
-        <div className="white-key" onClick={playB4}>B</div>
-        <div className="white-key" onClick={playC5}>C</div>
+        <div className="white-key" onClick={playC4}>
+          C
+        </div>
+        <div className="black-key" onClick={playDb4}>
+          Db
+        </div>
+        <div className="white-key" onClick={playD4}>
+          D
+        </div>
+        <div className="black-key" onClick={playEb4}>
+          Eb
+        </div>
+        <div className="white-key" onClick={playE4}>
+          E
+        </div>
+        <div className="white-key" onClick={playF4}>
+          F
+        </div>
+        <div className="black-key" onClick={playGb4}>
+          Gb
+        </div>
+        <div className="white-key" onClick={playG4}>
+          G
+        </div>
+        <div className="black-key" onClick={playAb4}>
+          Ab
+        </div>
+        <div className="white-key" onClick={playA4}>
+          A
+        </div>
+        <div className="black-key" onClick={playBb4}>
+          Bb
+        </div>
+        <div className="white-key" onClick={playB4}>
+          B
+        </div>
+        <div className="white-key" onClick={playC5}>
+          C
+        </div>
       </div>
 
       <div className="playbtn">
-        <button className="btn" onClick={play}>Play</button>
+        <button className="btn" onClick={play}>
+          Play
+        </button>
       </div>
     </div>
     // <div className="flex flex-col items-center min-h-screen bg-gray-100">
