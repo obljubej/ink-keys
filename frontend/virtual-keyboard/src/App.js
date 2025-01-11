@@ -1,55 +1,22 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import * as Tone from "tone";
-import Navbar from "./components/Navbar";
-import Piano from "./components/Piano";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Play from "./components/Play";
+import Create from "./components/Create";
 
-const App = () => {
-  const [notes, setNotes] = useState("");
-  useEffect(() => {
-    fetchNotes();
-    const interval = setInterval(fetchNotes, 1);
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchNotes = () => {
-    axios
-      .get("http://localhost:8080/get-notes")
-      .then((response) => {
-        setNotes(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching notes:", error);
-      });
-  };
-
-  const playNotes = () => {
-    if (!notes) {
-      alert("No notes to play. Please fetch notes first.");
-      return;
-    }
-    const noteArray = notes.split(",");
-    const synth = new Tone.PolySynth().toDestination();
-
-    synth.triggerAttackRelease(noteArray, "100n");
-  };
-
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
+function App() {
   return (
-    <div>
-      <Navbar/>
-      <Piano/>
-      <h1>Play Notes from Backend</h1>
-      <button onClick={fetchNotes}>Fetch Notes</button>
-      <button onClick={playNotes}>Play Notes</button>
-      <p>Notes: {notes}</p>
-    </div>
-
+    <Router>
+      <Routes>
+        {/* Define individual routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/play" element={<Play />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="*" element={<h1 className="text-center mt-20">Page Not Found</h1>} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;

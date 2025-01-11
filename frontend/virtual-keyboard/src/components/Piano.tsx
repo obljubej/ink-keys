@@ -13,33 +13,84 @@ import {
   playBb4,
   playB4,
   playC5,
-  play
+  play,
 } from "./tone.fn.js";
 
 const Piano = () => {
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-center">Piano</h1>
-      <div className="flex justify-center">
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playC4}>C</div>
-        <div className="bg-black w-15 h-64 -ml-8 -mr-8 z-10 text-red text-center" onClick={playDb4}>D</div>
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playD4}>D</div>
-        <div className="bg-black w-15 h-64 -ml-8 -mr-8 z-10 text-red text-center" onClick={playEb4}>D</div>
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playE4}>D</div>
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playF4}>F</div>
-        <div className="bg-black w-15 h-64 -ml-8 -mr-8 z-10 text-red text-center" onClick={playGb4}>T</div>
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playG4}>G</div>
-        <div className="bg-black w-15 h-64 -ml-8 -mr-8 z-10 text-red text-center" onClick={playAb4}>Y</div>
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playA4}>H</div>
-        <div className="bg-black w-15 h-64 -ml-8 -mr-8 z-10 text-red text-center" onClick={playBb4}>U</div>
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playB4}>J</div>
-        <div className="border border-black w-24 h-96 bg-white text-red text-center" onClick={playC5}>K</div>
+    <div className="flex flex-col items-center min-h-screen bg-gray-100">
+      <h1 className="text-center text-4xl font-bold my-8">Piano</h1>
+      <div className="relative flex justify-center w-full max-w-5xl">
+        <div className="relative z-10 flex">
+          <div className="white-key" onClick={playC4}>
+            C
+          </div>
+          <div className="white-key" onClick={playD4}>
+            D
+          </div>
+          <div className="white-key" onClick={playE4}>
+            E
+          </div>
+          <div className="white-key" onClick={playF4}>
+            F
+          </div>
+          <div className="white-key" onClick={playG4}>
+            G
+          </div>
+          <div className="white-key" onClick={playA4}>
+            A
+          </div>
+          <div className="white-key" onClick={playB4}>
+            B
+          </div>
+          <div className="white-key" onClick={playC5}>
+            C
+          </div>
+        </div>
+        <div className="absolute top-0 left-0 right-0 flex justify-center z-20">
+          <div
+            className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
+            onClick={playDb4}
+          >
+            Db
+          </div>
+          <div
+            className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
+            onClick={playEb4}
+          >
+            Eb
+          </div>
+          <div className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center "></div>
+          <div
+            className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
+            onClick={playGb4}
+          >
+            Gb
+          </div>
+          <div
+            className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
+            onClick={playAb4}
+          >
+            Ab
+          </div>
+          <div
+            className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
+            onClick={playBb4}
+          >
+            Bb
+          </div>
+        </div>
       </div>
       <div className="flex justify-center items-center mt-5">
-        <button className="cursor-pointer" onClick={play}>Play</button>
+        <button
+          className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded"
+          onClick={play}
+        >
+          Play
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default Piano;
