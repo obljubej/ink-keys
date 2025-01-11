@@ -17,6 +17,8 @@ def get_notes():
     response.mimetype = 'text/plain'
     return response
 
+#python pythonNoteTest.py
+
 def run_server():
     print("Server is running on http://localhost:8080")
     app.run(host='0.0.0.0', port=8080, debug=False, use_reloader=False)
