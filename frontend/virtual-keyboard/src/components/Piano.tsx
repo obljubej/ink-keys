@@ -14,6 +14,7 @@ import {
   playB4,
   playC5,
   play,
+  animateKey,
 } from "./tone.fn.js";
 
 const Piano = () => {
@@ -21,43 +22,134 @@ const Piano = () => {
     <div className="piano-page">
       <h1 className="text-center text-4xl font-bold my-8">Piano</h1>
       <div className="piano">
-        <div className="white-key" onClick={playC4}>
+        <div
+          className="white-key"
+          data-note="C4"
+          onClick={() => {
+            playC4();
+            animateKey("C4");
+          }}
+        >
           C
         </div>
-        <div className="black-key" onClick={playDb4}>
+        <div
+          className="black-key"
+          data-note="Db4"
+          onClick={() => {
+            playDb4();
+            animateKey("Db4");
+          }}
+        >
           Db
         </div>
-        <div className="white-key" onClick={playD4}>
+        <div
+          className="white-key"
+          data-note="D4"
+          onClick={() => {
+            playD4();
+            animateKey("D4");
+          }}
+        >
           D
         </div>
-        <div className="black-key" onClick={playEb4}>
+        <div
+          className="black-key"
+          data-note="Eb4"
+          onClick={() => {
+            playEb4();
+            animateKey("Eb4");
+          }}
+        >
           Eb
         </div>
-        <div className="white-key" onClick={playE4}>
+        <div
+          className="white-key"
+          data-note="E4"
+          onClick={() => {
+            playE4();
+            animateKey("E4");
+          }}
+        >
           E
         </div>
-        <div className="white-key" onClick={playF4}>
+        <div
+          className="white-key"
+          data-note="F4"
+          onClick={() => {
+            playF4();
+            animateKey("F4");
+          }}
+        >
           F
         </div>
-        <div className="black-key" onClick={playGb4}>
+        <div
+          className="black-key"
+          data-note="Gb4"
+          onClick={() => {
+            playGb4();
+            animateKey("Gb4");
+          }}
+        >
           Gb
         </div>
-        <div className="white-key" onClick={playG4}>
+        <div
+          className="white-key"
+          data-note="G4"
+          onClick={() => {
+            playG4();
+            animateKey("G4");
+          }}
+        >
           G
         </div>
-        <div className="black-key" onClick={playAb4}>
+        <div
+          className="black-key"
+          data-note="Ab4"
+          onClick={() => {
+            playAb4();
+            animateKey("Ab4");
+          }}
+        >
           Ab
         </div>
-        <div className="white-key" onClick={playA4}>
+        <div
+          className="white-key"
+          data-note="A4"
+          onClick={() => {
+            playA4();
+            animateKey("A4");
+          }}
+        >
           A
         </div>
-        <div className="black-key" onClick={playBb4}>
+        <div
+          className="black-key"
+          data-note="Bb4"
+          onClick={() => {
+            playBb4();
+            animateKey("Bb4");
+          }}
+        >
           Bb
         </div>
-        <div className="white-key" onClick={playB4}>
+        <div
+          className="white-key"
+          data-note="B4"
+          onClick={() => {
+            playB4();
+            animateKey("B4");
+          }}
+        >
           B
         </div>
-        <div className="white-key" onClick={playC5}>
+        <div
+          className="white-key"
+          data-note="C5"
+          onClick={() => {
+            playC5();
+            // animateKey("C5");
+          }}
+        >
           C
         </div>
       </div>
@@ -68,78 +160,6 @@ const Piano = () => {
         </button>
       </div>
     </div>
-    // <div className="flex flex-col items-center min-h-screen bg-gray-100">
-    //   <h1 className="text-center text-4xl font-bold my-8">Piano</h1>
-    //   <div className="relative flex justify-center w-full max-w-5xl">
-    //     <div className="relative z-10 flex">
-    //       <div className="white-key" onClick={playC4}>
-    //         C
-    //       </div>
-    //       <div className="white-key" onClick={playD4}>
-    //         D
-    //       </div>
-    //       <div className="white-key" onClick={playE4}>
-    //         E
-    //       </div>
-    //       <div className="white-key" onClick={playF4}>
-    //         F
-    //       </div>
-    //       <div className="white-key" onClick={playG4}>
-    //         G
-    //       </div>
-    //       <div className="white-key" onClick={playA4}>
-    //         A
-    //       </div>
-    //       <div className="white-key" onClick={playB4}>
-    //         B
-    //       </div>
-    //       <div className="white-key" onClick={playC5}>
-    //         C
-    //       </div>
-    //     </div>
-    //     <div className="absolute top-0 left-0 right-0 flex justify-center z-20">
-    //       <div
-    //         className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
-    //         onClick={playDb4}
-    //       >
-    //         Db
-    //       </div>
-    //       <div
-    //         className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
-    //         onClick={playEb4}
-    //       >
-    //         Eb
-    //       </div>
-    //       <div className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center "></div>
-    //       <div
-    //         className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
-    //         onClick={playGb4}
-    //       >
-    //         Gb
-    //       </div>
-    //       <div
-    //         className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
-    //         onClick={playAb4}
-    //       >
-    //         Ab
-    //       </div>
-    //       <div
-    //         className="bg-black w-10 h-32 ml-5 -mr-5 z-10 text-red-500 border-red-500 border-2 text-center flex items-end justify-center"
-    //         onClick={playBb4}
-    //       >
-    //         Bb
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="flex justify-center items-center mt-5">
-    //     <button
-    //       className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded"
-    //       onClick={play}
-    //     >
-    //       Play
-    //     </button>
-    //   </div>
-    // </div>
   );
 };
 

@@ -19,15 +19,16 @@ import {
   playB4,
   playC5,
   play,
+  animateKey,
 } from "./tone.fn.js";
 
 const App = () => {
   const [notes, setNotes] = useState("");
-  
+
   useEffect(() => {
     fetchNotes();
     // ! change this to fetchnotes waiting for the noise to finsish inside of each play___ function
-    const interval = setInterval(fetchNotes, 300); 
+    const interval = setInterval(fetchNotes, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -35,7 +36,7 @@ const App = () => {
     axios
       .get("http://localhost:8080/get-notes")
       .then((response) => {
-        setNotes(response.data);//TODOremove when done testing, for dev ease
+        setNotes(response.data); //TODOremove when done testing, for dev ease
         playNotes(response.data); // Play notes when they are received
       })
       .catch((error) => {
@@ -49,21 +50,21 @@ const App = () => {
       return;
     }
     const noteArray = notes.split(",");
-    
+
     noteArray.forEach((noteNew) => {
-      const synth = new Tone.PolySynth().toDestination();
-    synth.triggerAttackRelease(noteNew, "8n");
-    })
-    
+      setTimeout(() => {
+        const synth = new Tone.PolySynth().toDestination();
+        synth.triggerAttackRelease(noteNew, "8n");
+        animateKey(noteNew);
+      }, 3000);
+    });
   };
 
   return (
     <div>
       <Navbar />
       <Piano />
-      <h1>Play Notes from Backend</h1>
-      <button onClick={fetchNotes}>Fetch Notes</button>
-      <p>Notes: {notes}</p>
+      <p> Notes: {notes}</p>
     </div>
   );
 };
