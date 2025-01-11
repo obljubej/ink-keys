@@ -23,6 +23,7 @@ h1 {
   background-color: white;
   color: red;
   text-align: center;
+  transition: background-color 0.3s, transform 0.1s;
 }
 .black-key {
   background-color: black;
@@ -43,4 +44,26 @@ h1 {
 }
 .btn{
   cursor: pointer;
+}
+
+.white-key:hover{
+  background-color: lightgray;
+  transform: scale(1.01);
+}
+
+
+.black-key:hover{
+  background-color: rgb(38, 38, 38); 
+  transform: scale(1.01)
+}
+
+.white-key:active{
+  background-color: darkgray;
+  transform: scale(0.97);
+}
+
+
+.black-key:active {
+  background-color: rgb(96, 96, 96);
+  transform: scale(0.99);
 }
