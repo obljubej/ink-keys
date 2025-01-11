@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as Tone from "tone";
 import Navbar from "./components/Navbar";
+import Piano from "./components/Piano";
 
 const App = () => {
   const [notes, setNotes] = useState("");
@@ -41,7 +42,7 @@ const App = () => {
   return (
     <div>
       <Navbar/>
-
+      <Piano/>
       <h1>Play Notes from Backend</h1>
       <button onClick={fetchNotes}>Fetch Notes</button>
       <button onClick={playNotes}>Play Notes</button>
