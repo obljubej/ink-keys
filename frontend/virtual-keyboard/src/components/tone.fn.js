@@ -4,6 +4,7 @@ import * as Tone from "tone";
 export function playC4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("C4", "8n");
+
   }
   export function playDb4() {
     const synth = new Tone.Synth().toDestination();
@@ -48,6 +49,7 @@ export function playC4() {
   export function playB4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("B4", "8n");
+
   }
   export function playC5() {
     const synth = new Tone.Synth().toDestination();
@@ -55,11 +57,13 @@ export function playC4() {
   }
 
 
-
-// use query select to change the color to green when note is being clicked
+// for the play button feature, not specifically for the virtual keyboard
   export function play() {
     const notes = ["C5", "B4", "Bb4", "A4", "Ab4"];
-    
+    // C5,B4,Bb4,A4,Ab4
+    // C5,B4
+    // Bb4,A4
+    // B4
     function playNoteSequentially(index = 0) {
         if (index < notes.length) {
             const note = notes[index];
@@ -84,7 +88,7 @@ export function playC4() {
                         break;
                 }
                 playNoteSequentially(index + 1);  // Move to the next note
-            }, 1000);  // 1-second delay between notes
+            }, 500);  // 1-second delay between notes
         }
     }
 

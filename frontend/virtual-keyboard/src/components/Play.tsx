@@ -4,49 +4,66 @@ import axios from "axios";
 import * as Tone from "tone";
 import Navbar from "./Navbar";
 import Piano from "./Piano";
+import {
+  playC4,
+  playDb4,
+  playD4,
+  playEb4,
+  playE4,
+  playF4,
+  playGb4,
+  playG4,
+  playAb4,
+  playA4,
+  playBb4,
+  playB4,
+  playC5,
+  play,
+} from "./tone.fn.js";
 
 const App = () => {
-  // const [notes, setNotes] = useState("");
-  // useEffect(() => {
-  //   fetchNotes();
-  //   const interval = setInterval(fetchNotes, 1);
-  //   return () => clearInterval(interval);
-  // }, []);
+  const [notes, setNotes] = useState("");
+  
+  useEffect(() => {
+    fetchNotes();
+    // ! change this to fetchnotes waiting for the noise to finsish inside of each play___ function
+    const interval = setInterval(fetchNotes, 300); 
+    return () => clearInterval(interval);
+  }, []);
 
-  // const fetchNotes = () => {
-  //   axios
-  //     .get("http://localhost:8080/get-notes")
-  //     .then((response) => {
-  //       setNotes(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching notes:", error);
-  //     });
-  // };
+  const fetchNotes = () => {
+    axios
+      .get("http://localhost:8080/get-notes")
+      .then((response) => {
+        setNotes(response.data);//TODOremove when done testing, for dev ease
+        playNotes(response.data); // Play notes when they are received
+      })
+      .catch((error) => {
+        console.error("Error fetching notes:", error);
+      });
+  };
 
-  // const playNotes = () => {
-  //   if (!notes) {
-  //     alert("No notes to play. Please fetch notes first.");
-  //     return;
-  //   }
-  //   const noteArray = notes.split(",");
-  //   const synth = new Tone.PolySynth().toDestination();
-
-  //   synth.triggerAttackRelease(noteArray, "100n");
-  // };
-
-  // useEffect(() => {
-  //   fetchNotes();
-  // }, []);
+  const playNotes = (notes: string) => {
+    if (!notes) {
+      alert("No notes to play. Please fetch notes first.");
+      return;
+    }
+    const noteArray = notes.split(",");
+    
+    noteArray.forEach((noteNew) => {
+      const synth = new Tone.PolySynth().toDestination();
+    synth.triggerAttackRelease(noteNew, "8n");
+    })
+    
+  };
 
   return (
     <div>
       <Navbar />
       <Piano />
       <h1>Play Notes from Backend</h1>
-      {/* <button onClick={fetchNotes}>Fetch Notes</button>
-      <button onClick={playNotes}>Play Notes</button>
-      <p>Notes: {notes}</p> */}
+      <button onClick={fetchNotes}>Fetch Notes</button>
+      <p>Notes: {notes}</p>
     </div>
   );
 };
