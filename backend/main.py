@@ -129,7 +129,7 @@ def preProcess(img):
 
 
 # Initialize webcam
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 paused = False
 key_position = {}
@@ -205,10 +205,6 @@ if __name__ == "__main__":
             break
         elif key == ord(' '):
             paused = False
-
-
-
-
 
     cap.release()
     cv2.destroyAllWindows()

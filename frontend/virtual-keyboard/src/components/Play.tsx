@@ -25,6 +25,9 @@ const App = () => {
         console.log("Fetched Notes:", response.data);
         console.log("Past Notes Before Update:", pastNotes);
         if (!response.data || response.data === pastNotes) {
+          if (!response.data && pastNotes != response.data) {
+            pastNotes = response.data;
+          }
           return;
         }
 
