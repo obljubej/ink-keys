@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
 import * as Tone from "tone";
 import Navbar from "./Navbar";
 import Piano from "./Piano";
@@ -9,48 +8,48 @@ import { animateKey } from "./tone.fn.js";
 const Play = () => {
   const [notes, setNotes] = useState("");
   const [audioStarted, setAudioStarted] = useState(false);
-  let pastNotes = "";
+  const eventSourceRef = useRef<EventSource | null>(null);
 
   useEffect(() => {
-    console.log("Initial Past Notes in useEffect:", pastNotes); // Log at mount
-
-    fetchNotes();
-    const interval = setInterval(fetchNotes, 300); // Regularly fetch notes
-    return () => clearInterval(interval);
+    // Cleanup the stream when the component unmounts
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+      }
+    };
   }, []);
 
-  const fetchNotes = () => {
-    axios
-      .get("http://localhost:8080/get-notes")
-      .then((response) => {
-        console.log("Fetched Notes:", response.data);
-        console.log("Past Notes Before Update:", pastNotes);
+  const startAudio = async () => {
+    await Tone.start(); // Start the Tone.js audio context
+    setAudioStarted(true);
+    console.log("Audio started!");
+    startStream(); // Start the stream once the audio is initialized
+  };
 
-        if (!response.data || response.data === pastNotes) {
-          if (!response.data && pastNotes !== response.data) {
-            pastNotes = response.data;
-          }
-          return;
-        }
+  const startStream = () => {
+    if (eventSourceRef.current) return; // Prevent multiple streams
 
-        setNotes(response.data); // For development/testing ease
+    const eventSource = new EventSource("http://localhost:8080/stream-notes");
+    eventSource.onmessage = (event) => {
+      const newNotes = event.data;
+      console.log("Streamed Notes:", newNotes);
 
-        if (response.data !== pastNotes) {
-          pastNotes = response.data;
-          playNotes(response.data); // Play notes when received
-        }
+      if (newNotes && newNotes !== notes) {
+        setNotes(newNotes);
+        playNotes(newNotes);
+      }
+    };
 
-        console.log("Past Notes After Update:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching notes:", error);
-      });
+    eventSource.onerror = (error) => {
+      console.error("Error with the EventSource:", error);
+      eventSource.close();
+    };
+
+    eventSourceRef.current = eventSource;
   };
 
   const playNotes = (notes: string) => {
-    if (!notes) {
-      return;
-    }
+    if (!notes) return;
 
     const noteArray = notes.split(","); // Split the string into an array of notes
     const synth = new Tone.PolySynth().toDestination();
@@ -60,12 +59,6 @@ const Play = () => {
 
     // Animate keys for all notes
     noteArray.forEach((note) => animateKey(note));
-  };
-
-  const startAudio = async () => {
-    await Tone.start(); // Start the Tone.js audio context
-    setAudioStarted(true);
-    console.log("Audio started!");
   };
 
   return (
