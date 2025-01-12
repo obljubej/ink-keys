@@ -64,7 +64,9 @@ const App = () => {
     <div>
       <Navbar />
       <Piano />
-      <p> Notes: {notes}</p>
+      <div className="flex flex-col items-center">
+        <p className="text-lg text-gray-700 mt-4">Notes: {notes}</p>
+      </div>
     </div>
   );
 };

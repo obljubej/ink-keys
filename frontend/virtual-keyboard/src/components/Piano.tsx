@@ -153,12 +153,6 @@ const Piano = () => {
           C
         </div>
       </div>
-
-      <div className="playbtn">
-        <button className="btn" onClick={play}>
-          Play
-        </button>
-      </div>
     </div>
   );
 };
