@@ -63,17 +63,17 @@ const Home = () => {
   const tunesArray = [
     {
       name: "Twinkle Twinkle Little Star",
-      notes: "C4,C4,G4,G4,A4,A4,G4,F4,F4,E4,E4,D4,D4,C4",
+      notes: "C4,C4,G4,G4,A4,A4,G4,,F4,F4,E4,E4,D4,D4,C4",
       selected: false,
     },
     {
       name: "Mary Had a Little Lamb",
-      notes: "E4,D4,C4,D4,E4,E4,E4,D4,D4,D4,E4,G4,G4",
+      notes: "E4,D4,C4,D4,E4,E4,E4,,D4,D4,D4,,E4,G4,G4",
       selected: false,
     },
     {
-      name: "Happy Birthday",
-      notes: "C4,C4,D4,C4,F4,E4,C4,C4,D4,C4,G4,F4",
+      name: "Hot Cross Buns",
+      notes: "E4,D4,C4,,E4,D4,C4,,C4,C4,C4,C4,D4,D4,D4,D4,E4,D4,C4",
       selected: false,
     },
   ];
@@ -83,8 +83,12 @@ const Home = () => {
     noteArray.forEach((note, index) => {
       setTimeout(() => {
         const synth = new Tone.PolySynth().toDestination();
+        if (note === '') {
+          
+        } else{
         synth.triggerAttackRelease(note, "8n");
         animateKey(note);
+        }
       }, index * 500); // Adjust the delay as needed
     });
   };
@@ -104,11 +108,11 @@ const Home = () => {
         className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors duration-300"
         onClick={() => playTune(tune.notes)}
       >
-        Play
+        Preview
       </button>
       <button
         className="px-4 py-2 bg-pale-150 text-white rounded hover:bg-pale-200 transition-colors duration-300"
-        onClick={() => learnTune(index)}
+        // onClick={() => learnTune(index)}
       >
         Learn
       </button>

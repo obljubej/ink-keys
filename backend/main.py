@@ -167,7 +167,7 @@ if __name__ == "__main__":
             if(len(frozenKeys) == 13):
                 for i in range(len(frozenKeys)):
                     key_position[orderOfKeys[i]] = frozenKeys[i]
-                print(key_position)
+                # print(key_position)
                 paused = True
 
         i = 0
