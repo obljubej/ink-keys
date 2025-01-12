@@ -29,17 +29,8 @@ const Play = () => {
       .get("http://localhost:8080/get-notes")
       .then((response) => {
         console.log("Fetched Notes:", response.data);
-        console.log("Past Notes Before Update:", pastNotes);
-        if (!response.data || response.data === pastNotes) {
-          if (!response.data && pastNotes != response.data) {
-            pastNotes = response.data;
-          }
-          return;
-        }
-
-        setNotes(response.data); //TODOremove when done testing, for dev ease
-
-        if (response.data != pastNotes) {
+        setNotes(response.data); // For display
+        if (response.data && response.data !== pastNotes) {
           pastNotes = response.data;
           playNotes(response.data);
         }
@@ -69,7 +60,7 @@ const Play = () => {
         {!audioStarted ? (
           <button
             onClick={startAudio}
-            className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
+            className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 mt-10 transition-colors duration-300"
           >
             Start Audio
           </button>
