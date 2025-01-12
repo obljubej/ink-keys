@@ -19,9 +19,15 @@ const Home = () => {
               🎵 Get Started
             </button>
           </Link>
+          <Link to="/learn">
+            <button className="px-8 py-4 bg-purple-50 text-lg font-medium rounded-full hover:bg-purple-150 transition duration-300">
+            📖 Learn Music
+            </button>
+          </Link>
+
           <Link to="/create">
             <button className="px-8 py-4 bg-purple-50 text-lg font-medium rounded-full hover:bg-purple-150 transition duration-300">
-              ✏️ Learn Music
+              ✏️ Create Music
             </button>
           </Link>
         </div>
