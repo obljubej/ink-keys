@@ -285,7 +285,10 @@ if __name__ == "__main__":
         if len(frozenKeys) == 13:
             for key in frozenKeys:
                 x, y, w, h = key
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 0), 2)
+                if i == 1 or i == 3 or i == 6 or i == 8 or i == 10:
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 0), -1)
+                else:
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 0), 2)
                 cv2.putText(frame, orderOfKeys[i], (x, y - 10), cv2.FONT_HERSHEY_PLAIN, 1, (0, 69, 255), 2)
                 i += 1
 
