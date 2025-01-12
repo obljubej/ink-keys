@@ -12,15 +12,22 @@ CORS(app)
 
 shared_string = ""
 
+@app.route('/stream-notes')
+def stream_notes():
+    def generate():
+        global shared_string
+        last_sent = None  # Track the last sent value to avoid redundant updates
+        while True:
+            if shared_string and shared_string != last_sent:
+                yield f"data: {shared_string}\n\n"  # Stream data as SSE format
+                last_sent = shared_string
+            time.sleep(1)  # Adjust the interval if needed for faster/slower updates
+    return Response(generate(), mimetype='text/event-stream')
+
 @app.route('/get-notes', methods=['GET'])
 def get_notes():
     global shared_string
-    response = make_response(shared_string)
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    response.mimetype = 'text/plain'
-    return response
+    return shared_string
 
 def run_server():
     print("Server is running on http://localhost:8080")
