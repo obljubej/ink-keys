@@ -29,8 +29,17 @@ const Play = () => {
       .get("http://localhost:8080/get-notes")
       .then((response) => {
         console.log("Fetched Notes:", response.data);
-        setNotes(response.data); // For display
-        if (response.data && response.data !== pastNotes) {
+        console.log("Past Notes Before Update:", pastNotes);
+        if (!response.data || response.data === pastNotes) {
+          if (!response.data && pastNotes != response.data) {
+            pastNotes = response.data;
+          }
+          return;
+        }
+
+        setNotes(response.data); //TODOremove when done testing, for dev ease
+
+        if (response.data != pastNotes) {
           pastNotes = response.data;
           playNotes(response.data);
         }

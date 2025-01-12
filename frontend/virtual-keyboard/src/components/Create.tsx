@@ -28,17 +28,17 @@ const Create = () => {
   const tunesArray = [
     {
       name: "Twinkle Twinkle Little Star",
-      notes: "C4,C4,G4,G4,A4,A4,G4,;,F4,F4,E4,E4,D4,D4,C4",
+      notes: "C4,C4,G4,G4,A4,A4,G4, ; ,F4,F4,E4,E4,D4,D4,C4",
       selected: false,
     },
     {
       name: "Mary Had a Little Lamb",
-      notes: "E4,D4,C4,D4,E4,E4,E4,;,D4,D4,D4,;,E4,G4,G4",
+      notes: "E4,D4,C4,D4,E4,E4,E4, ; ,D4,D4,D4, ; ,E4,G4,G4",
       selected: false,
     },
     {
       name: "Hot Cross Buns",
-      notes: "E4,D4,C4,;,E4,D4,C4,;,C4,C4,C4,C4,D4,D4,D4,D4,E4,D4,C4",
+      notes: "E4,D4,C4, ; ,E4,D4,C4, ; ,C4,C4,C4,C4,D4,D4,D4,D4,E4,D4,C4",
       selected: false,
     },
   ];
@@ -48,7 +48,7 @@ const Create = () => {
     noteArray.forEach((note, index) => {
       setTimeout(() => {
         const synth = new Tone.PolySynth().toDestination();
-        if (note !== ";") {
+        if (note !== " ; ") {
           synth.triggerAttackRelease(note, "8n");
           animateKey(note);
         }
