@@ -34,8 +34,8 @@ const Play = () => {
       const newNotes = event.data;
       console.log("Streamed Notes:", newNotes);
 
+      setNotes(newNotes);
       if (newNotes && newNotes !== notes) {
-        setNotes(newNotes);
         playNotes(newNotes);
       }
     };
@@ -55,10 +55,13 @@ const Play = () => {
     const synth = new Tone.PolySynth().toDestination();
 
     // Trigger all notes at once
-    synth.triggerAttackRelease(noteArray, "8n");
+    
 
     // Animate keys for all notes
-    noteArray.forEach((note) => animateKey(note));
+    noteArray.forEach((note) =>{ 
+      synth.triggerAttackRelease(note, "8n");
+      animateKey(note);
+    });
   };
 
   return (

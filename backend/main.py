@@ -19,10 +19,10 @@ def stream_notes():
         global shared_string
         last_sent = None  # Track the last sent value to avoid redundant updates
         while True:
-            if shared_string and shared_string != last_sent:
+            if shared_string != last_sent:
                 yield f"data: {shared_string}\n\n"  # Stream data as SSE format
                 last_sent = shared_string
-            time.sleep(1)  # Adjust the interval if needed for faster/slower updates
+            time.sleep(0.5)  # Adjust the interval if needed for faster/slower updates
     return Response(generate(), mimetype='text/event-stream')
 
 @app.route('/get-notes', methods=['GET'])
