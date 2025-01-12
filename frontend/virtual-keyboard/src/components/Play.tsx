@@ -38,7 +38,6 @@ const Play = () => {
         }
 
         console.log("Past Notes After Update:", response.data);
-
         playNotes(response.data); // Play notes when they are received
       })
       .catch((error) => {});

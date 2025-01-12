@@ -4,67 +4,67 @@ import '../index.css';
 export function playC4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("C4", "8n");
-    // animateKey('C4');
+    animateKey('C4');
 }
 export function playDb4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("Db4", "8n");
-    // animateKey('Db4');
+    animateKey('Db4');
 }
 export function playD4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("D4", "8n");
-    // animateKey('D4');
+    animateKey('D4');
 }
 export function playEb4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("Eb4", "8n");
-    // animateKey('Eb4');
+    animateKey('Eb4');
 }
 export function playE4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("E4", "8n");
-    // animateKey('E4');
+    animateKey('E4');
 }
 export function playF4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("F4", "8n");
-    // animateKey('F4');
+    animateKey('F4');
 }
 export function playGb4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("Gb4", "8n");
-    // animateKey('Gb4');
+    animateKey('Gb4');
 }
 export function playG4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("G4", "8n");
-    // animateKey('G4');
+    animateKey('G4');
 }
 export function playAb4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("Ab4", "8n");
-    // animateKey('Ab4');
+    animateKey('Ab4');
 }
 export function playA4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("A4", "8n");
-    // animateKey('A4');
+    animateKey('A4');
 }
 export function playBb4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("Bb4", "8n");
-    // animateKey('Bb4');
+    animateKey('Bb4');
 }
 export function playB4() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("B4", "8n");
-    // animateKey('B4');
+    animateKey('B4');
 }
 export function playC5() {
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease("C5", "8n");
-    // animateKey('C5');
+    animateKey('C5');
 }
 // "C5", "B4", "Bb4", "A4", "Ab4"
 // for the play button feature, not specifically for the virtual keyboard
