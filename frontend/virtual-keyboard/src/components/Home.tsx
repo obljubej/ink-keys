@@ -11,7 +11,8 @@ const Home = () => {
         <h1 className="text-6xl font-extrabold mb-4 drop-shadow-lg">
           Welcome to Virtual Keyboard
         </h1>
-        <p className="text-xl font-light mb-8">Sample text here.</p>
+        <p className="text-xl font-light mb-8">          Experience the future of music creation with our computer-vision-powered virtual piano. Transform your gestures into melodies!
+        </p>
         <div className="flex space-x-6">
           <Link to="/play">
             <button className="px-8 py-4 bg-pale-100 text-lg font-medium rounded-full hover:bg-pale-150 transition duration-300">
@@ -20,32 +21,34 @@ const Home = () => {
           </Link>
           <Link to="/create">
             <button className="px-8 py-4 bg-purple-50 text-lg font-medium rounded-full hover:bg-purple-150 transition duration-300">
-              ✏️ Create Music
+              ✏️ Learn Music
             </button>
           </Link>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-8 bg-purple-150">
-        <h2 className="text-4xl font-bold text-center mb-8">Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <div>
-            <h3 className="text-2xl font-semibold mb-2">🎶 Play Music</h3>
-            <p className="text-sm text-gray-300">
-              Play notes seamlessly with our virtual piano.
+            {/* Features Section */}
+      <section className="py-16 px-8 bg-purple-150 text-gray-200">
+        <h2 className="text-4xl font-bold text-center mb-12">Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+          <div className="bg-gray-700 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+            <h3 className="text-2xl font-semibold mb-4">🎶 Play Music</h3>
+            <p className="text-sm">
+            Play your favorite tunes with ease using our virtual piano,
+            powered by cutting-edge computer vision technology.
             </p>
           </div>
-          <div>
-            <h3 className="text-2xl font-semibold mb-2">✏️ Create Tunes</h3>
-            <p className="text-sm text-gray-300">
-              Create and save your compositions with ease.
+          <div className="bg-gray-700 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+            <h3 className="text-2xl font-semibold mb-4">✏️ Create and Learn Tunes</h3>
+            <p className="text-sm">
+              Learn how to play songs through our interactive tutorials!
             </p>
           </div>
-          <div>
-            <h3 className="text-2xl font-semibold mb-2">🚀 Easy to Use</h3>
-            <p className="text-sm text-gray-300">
-              Designed for musicians of all levels.
+          <div className="bg-gray-700 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+            <h3 className="text-2xl font-semibold mb-4">🚀 Powered by Computer Vision</h3>
+            <p className="text-sm">
+            Our computer vision technology captures your gestures and translates
+            them into beautiful melodies with precision.
             </p>
           </div>
         </div>

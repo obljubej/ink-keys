@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbars for all elements but allow scrolling */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrollbars from appearing */
+  overflow-y: scroll;
+}
+
+/* Hide scrollbars for all modern browsers */
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 .white-key {
   @apply border border-black w-20 h-48 bg-white text-red-500 text-center flex items-end justify-center;
 }

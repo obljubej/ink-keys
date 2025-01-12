@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Play from "./components/Play";
 import Create from "./components/Create";
+import './index.css';
 
 function App() {
   return (
