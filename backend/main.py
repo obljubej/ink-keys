@@ -76,7 +76,7 @@ def draw_pressed_keys(frame, pressed_keys):
     (text_width, text_height), baseline = cv2.getTextSize(text, font, font_scale, thickness)
 
     # Define background rectangle position
-    x, y = 10, 50  # Top-left corner of the text
+    x, y = 10, frame_height - text_height - 10  # Bottom-left corner of the text
 
     # Draw the text on top of the rectangle
     cv2.putText(frame, text, (x, y), font, font_scale, color, thickness, cv2.LINE_AA)
@@ -240,7 +240,7 @@ def preProcess(img):
 
 
 # Initialize webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 paused = False
 key_position = {}
