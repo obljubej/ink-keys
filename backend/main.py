@@ -2,9 +2,10 @@ import cv2
 import numpy as np
 import mediapipe as mp
 
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, Response
 from flask_cors import CORS
 import threading
+import time
 
 
 app = Flask(__name__)
@@ -216,7 +217,7 @@ def preProcess(img):
 
 
 # Initialize webcam
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 paused = False
 key_position = {}
