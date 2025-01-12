@@ -19,7 +19,7 @@ import {
 
 const Piano = () => {
   return (
-    <div className="piano-page mt-10">
+    <div className="piano-page mt-10 font-geistMono">
       {/* <h1 className="text-center text-4xl font-bold my-8">Piano</h1> */}
       <div className="piano">
         <div

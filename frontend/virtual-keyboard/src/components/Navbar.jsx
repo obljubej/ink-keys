@@ -10,12 +10,12 @@ const Navbar = () => {
         to="/"
         className=""
       >
-        <h1 className="text-3xl font-bold hover:shadow-md hover:text-gray-300 transition duration-50">Virtual Keyboard</h1>
+        <h1 className="text-3xl font-bold hover:shadow-md hover:text-gray-300 transition duration-50 font-geist">Virtual Keyboard</h1>
       </Link>
 
 
       {/* Navigation Links */}
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-8 font-geist">
         <Link
           to="/"
           className="px-4 py-2 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-300"

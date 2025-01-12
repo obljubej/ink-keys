@@ -218,7 +218,7 @@ const CustomTune = () => {
                         </div>
                     )}
 
-                    <div className="piano grid grid-cols-7">
+                    <div className="piano grid grid-cols-7 font-geistMono">
                         {[
                             { note: "C4", playFn: playC4 },
                             { note: "Db4", playFn: playDb4 },

@@ -22,6 +22,10 @@ module.exports = {
         grey: '#BEBBBB', 
         black: '#000000',
       },
+      fontFamily: {
+        geistMono: ['GeistMonoVF', 'monospace'], // Font for monospaced text
+        geist: ['GeistVF', 'sans-serif'],       // Font for regular text
+      },
     },
   },
   plugins: [],

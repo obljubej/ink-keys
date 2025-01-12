@@ -72,12 +72,12 @@ const Play = () => {
         {!audioStarted ? (
           <button
             onClick={startAudio}
-            className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 mt-10 transition-colors duration-300"
+            className="px-6 py-3 mb-10 bg-green-500 text-white rounded-lg hover:bg-green-600 mt-10 transition-colors duration-300 font-geist font-semibold"
           >
             Start Audio
           </button>
         ) : (
-          <p className="text-lg text-gray-700 mt-4">Notes: {notes}</p>
+          <p className="text-lg text-purple-200 mt-4 mb-10 px-6 py-3 font-geistMono">Notes: {notes}</p>
         )}
       </div>
     </div>

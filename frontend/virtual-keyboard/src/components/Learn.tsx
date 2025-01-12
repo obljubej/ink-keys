@@ -157,7 +157,7 @@ const Create = () => {
               key={index}
               className="card p-4 border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer bg-purple-50 text-white mb-4"
             >
-              <h3 className="text-xl font-semibold mb-2 text-center">{tune.name}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-center font-geist">{tune.name}</h3>
               <div className="flex justify-center space-x-4">
                 <button
                   className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors duration-300"
@@ -184,15 +184,15 @@ const Create = () => {
           {tuneIndex !== null && (
             <div className="mb-8">
               <div className="card p-10 border border-gray-300 rounded-lg shadow-md bg-purple-50 text-white">
-                <h2 className="text-2xl font-bold mb-4 text-center">
+                <h2 className="text-4xl font-bold mb-4 text-center font-geist">
                   {tunesArray[tuneIndex].name} Notes
                 </h2>
-                <p className="text-lg text-center font-bold tracking-widest">
+                <p className="text-md text-center tracking-widest font-geistMono">
                   {tunesArray[tuneIndex].notes}
                 </p>
                 {isLearning && (
                   <div className="mt-4 text-center">
-                    <p className="text-lg font-semibold">
+                    <p className="text-lg font-semibold font-geist">
                       Play: <span className={noteColor}>{tunesArray[tuneIndex].notes.split(",")[currentNoteIndex]}</span>
                     </p>
                   </div>
@@ -201,7 +201,7 @@ const Create = () => {
             </div>
           )}
 
-          <div className="piano grid grid-cols-7">
+          <div className="piano grid grid-cols-7 font-geistMono">
             {[
               { note: "C4", playFn: playC4 },
               { note: "Db4", playFn: playDb4 },

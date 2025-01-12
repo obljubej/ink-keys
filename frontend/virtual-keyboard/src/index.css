@@ -80,3 +80,18 @@ h1 {
   transform: scale(0.99);
   transition: transform 0.2s ease-in-out
 }
+
+
+@font-face {
+  font-family: 'GeistMonoVF';
+  src: url('./assets/fonts/GeistMonoVF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GeistVF';
+  src: url('./assets/fonts/GeistVF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
