@@ -69,4 +69,4 @@ const Play = () => {
   );
 };
 
-export default App;
+export default Play;
