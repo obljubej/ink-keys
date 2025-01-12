@@ -12,9 +12,9 @@ const Home = () => {
         {/* Hero Section */}
         <section className="flex flex-col items-center justify-center h-screen text-center px-4">
           <h1 className="text-6xl font-extrabold mb-4 drop-shadow-lg font-geist">
-            Welcome to Virtual Keyboard
+            Welcome to Ink-Keys
           </h1>
-          <p className="text-xl font-light mb-8">          Experience the future of music creation with our computer-vision-powered virtual piano. <br/>Transform your gestures into melodies!
+          <p className="text-xl font-light mb-8">          Experience the future of music creation with our computer-vision-powered virtual piano. <br/>Transform your ink and pen into melodies, anywhere, anytime!
           </p>
         </section>
 
