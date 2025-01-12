@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-router-dom": "^7.1.1",
-    "tone": "^15.0.4"
-  }
-}
