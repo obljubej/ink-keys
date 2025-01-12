@@ -108,7 +108,7 @@ export function animateKey(note, type='reg') {
         // console.log('Animating key:', note);  // Debug to check which key is found
         // console.log('Class Name:', key.className);
         key.classList.add('active');
-
+        // console.log(key.classList);
         // Apply CSS animation inline
         key.style.transition = 'transform 0.1s ease-in-out';
         if (key.classList.contains('white-key')) {

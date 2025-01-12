@@ -79,11 +79,11 @@ const Create = () => {
     },
     {
       name: "D Major Scale",
-      notes: "D4,E4,F#4,G4,A4,B4,C#4,D4",
+      notes: "D4,E4,Gb4,G4,A4,B4,Db4,D4",
     },
     {
       name: "Chromatic Scale",
-      notes: "C4,C#4,D4,D#4,E4,F4,F#4,G4,G#4,A4,A#4,B4,C5",
+      notes: "C4,Db4,D4,Eb4,E4,F4,Gb4,G4,Ab4,A4,Bb4,B4,C5",
     },
   ];
 
@@ -95,6 +95,7 @@ const Create = () => {
         if (note !== " ; ") {
           synth.triggerAttackRelease(note, "8n");
           animateKey(note);
+
         }
       }, index * 500);
     });
