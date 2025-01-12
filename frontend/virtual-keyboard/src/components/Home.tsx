@@ -43,7 +43,7 @@ const Home = () => {
             </p>
           </div>
           <div>
-            <h3 className="text-2xl font-semibold mb-2">🚀 Easy to Use</h3>
+            <h3 className="text-2xl font-semibold mb-2">🚀 Easy to Use</h3>``
             <p className="text-sm text-gray-300">
               Designed for musicians of all levels.
             </p>
