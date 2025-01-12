@@ -65,7 +65,21 @@ def map_fingers_to_keys(finger_positions, key_position):
 def draw_pressed_keys(frame, pressed_keys):
     """Display all pressed keys as a CSV at the top of the screen."""
     csv_text = ', '.join(pressed_keys)
-    cv2.putText(frame, f"Pressed Keys: {csv_text}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+    # Define text and styling parameters
+    text = f"Pressed Keys: {csv_text}"
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 1
+    thickness = 2
+    color = (255, 255, 255)  # Light blue
+
+    # Get the size of the text box
+    (text_width, text_height), baseline = cv2.getTextSize(text, font, font_scale, thickness)
+
+    # Define background rectangle position
+    x, y = 10, 50  # Top-left corner of the text
+
+    # Draw the text on top of the rectangle
+    cv2.putText(frame, text, (x, y), font, font_scale, color, thickness, cv2.LINE_AA)
 
 
 
@@ -134,16 +148,25 @@ def detect_keyboard(imgOriginal, imgDil):
                         detectedKeys += 1
 
                         # Draw the bounding rectangle and label
-                        cv2.rectangle(imgOriginal, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                        cv2.rectangle(imgOriginal, (x, y), (x + w, y + h), (255, 255, 0), 2)
 
     # Expected total keys in a single octave piano
     totalKeys = 13
-
     # Display detection status
-    if detectedKeys < totalKeys:
-        cv2.putText(imgOriginal, "Piano not found", (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 3)
-    else:
-        cv2.putText(imgOriginal, "All keys detected", (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 3)
+    status_text = "All keys detected" if detectedKeys == totalKeys else "Piano not found"
+    text_color = (0, 255, 0) if detectedKeys == totalKeys else (0, 0, 255)
+
+    cv2.putText(
+        imgOriginal, 
+        status_text, 
+        (300, 50), 
+        cv2.FONT_HERSHEY_SIMPLEX,  # Use a slightly more polished font
+        0.8,  # Font scale for better visibility
+        text_color, 
+        2,  # Thickness for bold text
+        cv2.LINE_AA  # Anti-aliased line for smoother text edges
+    )
+
 
     # Sort the rectangles by their x-coordinate
     boundRect.sort(key=lambda rect: rect[0])
@@ -217,7 +240,7 @@ def preProcess(img):
 
 
 # Initialize webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 paused = False
 key_position = {}
@@ -262,7 +285,7 @@ if __name__ == "__main__":
         if len(frozenKeys) == 13:
             for key in frozenKeys:
                 x, y, w, h = key
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 0), 2)
                 cv2.putText(frame, orderOfKeys[i], (x, y - 10), cv2.FONT_HERSHEY_PLAIN, 1, (0, 69, 255), 2)
                 i += 1
 
