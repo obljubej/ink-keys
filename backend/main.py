@@ -217,7 +217,7 @@ def preProcess(img):
 
 
 # Initialize webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 paused = False
 key_position = {}
