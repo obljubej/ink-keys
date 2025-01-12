@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as Tone from "tone";
 import Navbar from "./Navbar";
-import { animateKey } from "./tone.fn.js";
+import { animateKey, play } from "./tone.fn.js";
 import {
   playC4,
   playDb4,
@@ -23,7 +23,44 @@ const Create = () => {
   const [currentNoteIndex, setCurrentNoteIndex] = useState<number>(0);
   const [isLearning, setIsLearning] = useState(false);
   const [noteColor, setNoteColor] = useState<string>("text-white");
+  const eventSourceRef = useRef<EventSource | null>(null);
+  const [notes, setNotes] = useState("");
 
+  useEffect(() => {
+    // Cleanup the stream when the component unmounts
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // Handle note changes and learning mode
+    if (notes && isLearning && tuneIndex !== null) {
+      handleNotePlayed(notes);
+      playNotes(notes);
+    }
+  }, [notes, isLearning, tuneIndex]);
+
+  const startStream = () => {
+    if (eventSourceRef.current) return; // Prevent multiple streams
+
+    const eventSource = new EventSource("http://localhost:8080/stream-notes");
+    eventSource.onmessage = (event) => {
+      const newNotes = event.data;
+      console.log("Streamed Notes:", newNotes);
+
+      setNotes(newNotes); // Update notes, which triggers the useEffect above
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("Error with the EventSource:", error);
+      eventSource.close();
+    };
+
+    eventSourceRef.current = eventSource;
+  };
 
   const tunesArray = [
     {
@@ -53,23 +90,36 @@ const Create = () => {
       }, index * 500); // Adjust the delay as needed
     });
   };
+  
 
-  // Start learning mode
+  const playNotes = (notes: string) => {
+    if (!notes) return;
+
+    const noteArray = notes.split(",");
+    const synth = new Tone.PolySynth().toDestination();
+
+    noteArray.forEach((note) => {
+      synth.triggerAttackRelease(note, "8n");
+      animateKey(note);
+    });
+  };
+
   const startLearning = (index: number) => {
     setTuneIndex(index);
     setCurrentNoteIndex(0);
     setIsLearning(true);
   };
 
-  // Handle note played by the user
   const handleNotePlayed = (note: string) => {
+    console.log("isLearning:", isLearning, "tuneIndex:", tuneIndex, "note:", note);
+
     if (tuneIndex !== null && isLearning) {
       const tuneNotes = tunesArray[tuneIndex].notes.split(",");
       const correctNote = tuneNotes[currentNoteIndex];
 
       if (note === correctNote) {
-        setNoteColor("text-white"); // Set note color to white for correct note
-        animateKey(note); // Animate correct key
+        setNoteColor("text-white");
+        animateKey(note);
         setCurrentNoteIndex((prevIndex) => {
           const nextIndex = prevIndex + 1;
 
@@ -79,23 +129,16 @@ const Create = () => {
           }
 
           if (tuneNotes[nextIndex] !== " ; ") {
-            animateKey(tuneNotes[nextIndex]); // Animate the next correct key
+            animateKey(tuneNotes[nextIndex]);
           }
 
-          // Skip semicolons
-          if (tuneNotes[nextIndex] === " ; ") {
-            return nextIndex + 1;
-          }
-
-          return nextIndex;
+          return tuneNotes[nextIndex] === " ; " ? nextIndex + 1 : nextIndex;
         });
       } else {
-        setNoteColor("text-red-500"); // Change note color to red for incorrect note
-        // alert("🚫 Incorrect note. Try again!");
+        setNoteColor("text-red-500");
       }
     }
   };
-
 
   return (
     <div>
@@ -116,7 +159,10 @@ const Create = () => {
               </button>
               <button
                 className="px-4 py-2 bg-purple-700 text-white rounded hover:bg-purple-800 transition-colors duration-300"
-                onClick={() => startLearning(index)}
+                onClick={() => {
+                  startLearning(index);
+                  startStream();
+                }}
               >
                 Learn
               </button>
@@ -145,128 +191,37 @@ const Create = () => {
         </div>
       )}
 
-
       {/* Piano */}
       <div className="piano">
-        <div
-          className="white-key"
-          onClick={() => {
-            playC4();
-            handleNotePlayed("C4");
-          }}
-        >
-          C
-        </div>
-        <div
-          className="black-key"
-          onClick={() => {
-            playDb4();
-            handleNotePlayed("Db4");
-          }}
-        >
-          Db
-        </div>
-        <div
-          className="white-key"
-          onClick={() => {
-            playD4();
-            handleNotePlayed("D4");
-          }}
-        >
-          D
-        </div>
-        <div
-          className="black-key"
-          onClick={() => {
-            playEb4();
-            handleNotePlayed("Eb4");
-          }}
-        >
-          Eb
-        </div>
-        <div
-          className="white-key"
-          onClick={() => {
-            playE4();
-            handleNotePlayed("E4");
-          }}
-        >
-          E
-        </div>
-        <div
-          className="white-key"
-          onClick={() => {
-            playF4();
-            handleNotePlayed("F4");
-          }}
-        >
-          F
-        </div>
-        <div
-          className="black-key"
-          onClick={() => {
-            playGb4();
-            handleNotePlayed("Gb4");
-          }}
-        >
-          Gb
-        </div>
-        <div
-          className="white-key"
-          onClick={() => {
-            playG4();
-            handleNotePlayed("G4");
-          }}
-        >
-          G
-        </div>
-        <div
-          className="black-key"
-          onClick={() => {
-            playAb4();
-            handleNotePlayed("Ab4");
-          }}
-        >
-          Ab
-        </div>
-        <div
-          className="white-key"
-          onClick={() => {
-            playA4();
-            handleNotePlayed("A4");
-          }}
-        >
-          A
-        </div>
-        <div
-          className="black-key"
-          onClick={() => {
-            playBb4();
-            handleNotePlayed("Bb4");
-          }}
-        >
-          Bb
-        </div>
-        <div
-          className="white-key"
-          onClick={() => {
-            playB4();
-            handleNotePlayed("B4");
-          }}
-        >
-          B
-        </div>
-        <div
-          className="white-key"
-          onClick={() => {
-            playC5();
-            handleNotePlayed("C5");
-          }}
-        >
-          C
-        </div>
+        {/* White and black keys */}
+        {[
+          { note: "C4", playFn: playC4 },
+          { note: "Db4", playFn: playDb4 },
+          { note: "D4", playFn: playD4 },
+          { note: "Eb4", playFn: playEb4 },
+          { note: "E4", playFn: playE4 },
+          { note: "F4", playFn: playF4 },
+          { note: "Gb4", playFn: playGb4 },
+          { note: "G4", playFn: playG4 },
+          { note: "Ab4", playFn: playAb4 },
+          { note: "A4", playFn: playA4 },
+          { note: "Bb4", playFn: playBb4 },
+          { note: "B4", playFn: playB4 },
+          { note: "C5", playFn: playC5 },
+        ].map(({ note, playFn }, index) => (
+          <div
+            key={index}
+            className={note.includes("b") ? "black-key" : "white-key"}
+            data-note={note}
+            onClick={() => {
+              playFn();
+              handleNotePlayed(note);
+            }}
+          >
+            {note}
+          </div>
+        ))}
       </div>
-
     </div>
   );
 };
