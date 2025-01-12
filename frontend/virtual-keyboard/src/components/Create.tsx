@@ -85,7 +85,14 @@ const CustomTune = () => {
         const updatedTunes = [...savedTunes, customTune];
         setSavedTunes(updatedTunes);
         localStorage.setItem("savedTunes", JSON.stringify(updatedTunes));
-        alert("Tune saved successfully!");
+        const toast = document.createElement("div");
+        toast.className = "fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg";
+        toast.innerText = "Tune saved successfully!";
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
     };
 
     const startLearning = () => {
@@ -107,7 +114,13 @@ const CustomTune = () => {
 
                     if (nextIndex === tuneNotes.length) {
                         setIsLearning(false);
-                        alert("🎉 Congratulations! You completed the tune!");
+                        const toast = document.createElement("div");
+                        toast.className = "fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg";
+                        toast.innerText = "🎉 Congratulations! You completed the tune!";
+                        document.body.appendChild(toast);
+                        setTimeout(() => {
+                          toast.remove();
+                        }, 3000);
                     }
 
                     if (tuneNotes[nextIndex] !== " ; ") {
@@ -165,7 +178,7 @@ const CustomTune = () => {
                                     className="card p-4 border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer bg-purple-50 text-white mb-4"
                                 >
                                     <h3 className="text-xl font-semibold mb-2 text-center">Custom Tune {index + 1}</h3>
-                                    <p className="text-lg text-center font-bold tracking-widest">{tune}</p>
+                                    <p className="text-md font-geistMono text-center font-bold tracking-widest mb-5">{tune}</p>
                                     <div className="flex justify-center space-x-4">
                                         <button
                                             className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors duration-300"

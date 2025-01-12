@@ -134,7 +134,13 @@ const Create = () => {
 
           if (nextIndex === tuneNotes.length) {
             setIsLearning(false);
-            alert("🎉 Congratulations! You completed the tune!");
+            const toast = document.createElement("div");
+            toast.className = "fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg";
+            toast.innerText = "🎉 Congratulations! You completed the tune!";
+            document.body.appendChild(toast);
+            setTimeout(() => {
+              toast.remove();
+            }, 3000);
           }
 
           return tuneNotes[nextIndex] === " ; " ? nextIndex + 1 : nextIndex;
