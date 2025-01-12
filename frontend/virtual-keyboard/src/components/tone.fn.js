@@ -105,8 +105,8 @@ export function play() {
 export function animateKey(note, type='reg') {
     const key = document.querySelector(`[data-note="${note}"]`);
     if (key) {
-        console.log('Animating key:', note);  // Debug to check which key is found
-        console.log('Class Name:', key.className);
+        // console.log('Animating key:', note);  // Debug to check which key is found
+        // console.log('Class Name:', key.className);
         key.classList.add('active');
 
         // Apply CSS animation inline
