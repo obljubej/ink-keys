@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as Tone from "tone";
 import Navbar from "./Navbar";
-import { animateKey, play } from "./tone.fn.js";
+import { animateKey } from "./tone.fn.js";
 import {
     playC4,
     playDb4,
@@ -20,6 +20,7 @@ import {
 
 const CustomTune = () => {
     const [customTune, setCustomTune] = useState("");
+    const [savedTunes, setSavedTunes] = useState<string[]>([]);
     const [currentNoteIndex, setCurrentNoteIndex] = useState<number>(0);
     const [isLearning, setIsLearning] = useState(false);
     const [noteColor, setNoteColor] = useState<string>("text-white");
@@ -27,6 +28,11 @@ const CustomTune = () => {
     const [notes, setNotes] = useState("");
 
     useEffect(() => {
+        const storedTunes = localStorage.getItem("savedTunes");
+        if (storedTunes) {
+            setSavedTunes(JSON.parse(storedTunes));
+        }
+
         return () => {
             if (eventSourceRef.current) {
                 eventSourceRef.current.close();
@@ -46,15 +52,7 @@ const CustomTune = () => {
 
         const eventSource = new EventSource("http://localhost:8080/stream-notes");
         eventSource.onmessage = (event) => {
-            const newNotes = event.data;
-            console.log("Streamed Notes:", newNotes);
-
-            setNotes(newNotes);
-        };
-
-        eventSource.onerror = (error) => {
-            console.error("Error with the EventSource:", error);
-            eventSource.close();
+            setNotes(event.data);
         };
 
         eventSourceRef.current = eventSource;
@@ -74,8 +72,6 @@ const CustomTune = () => {
     };
 
     const playNotes = (notes: string) => {
-        if (!notes) return;
-
         const noteArray = notes.split(",");
         const synth = new Tone.PolySynth().toDestination();
 
@@ -85,16 +81,20 @@ const CustomTune = () => {
         });
     };
 
+    const saveTune = () => {
+        const updatedTunes = [...savedTunes, customTune];
+        setSavedTunes(updatedTunes);
+        localStorage.setItem("savedTunes", JSON.stringify(updatedTunes));
+        alert("Tune saved successfully!");
+    };
+
     const startLearning = () => {
-        if (!customTune) return;
         setCurrentNoteIndex(0);
         setIsLearning(true);
         startStream();
     };
 
     const handleNotePlayed = (note: string) => {
-        console.log("isLearning:", isLearning, "note:", note);
-
         if (isLearning) {
             const tuneNotes = customTune.split(",");
             const correctNote = tuneNotes[currentNoteIndex];
@@ -110,11 +110,12 @@ const CustomTune = () => {
                         alert("🎉 Congratulations! You completed the tune!");
                     }
 
+                    if (tuneNotes[nextIndex] !== " ; ") {
+                        animateKey(tuneNotes[nextIndex]);
+                    }
 
                     return tuneNotes[nextIndex] === " ; " ? nextIndex + 1 : nextIndex;
                 });
-            } else {
-                setNoteColor("text-red-500");
             }
         }
     };
@@ -146,8 +147,57 @@ const CustomTune = () => {
                             >
                                 Learn
                             </button>
+                            <button
+                                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors duration-300"
+                                onClick={saveTune}
+                            >
+                                Save
+                            </button>
                         </div>
                     </div>
+
+                    {savedTunes.length > 0 && (
+                        <div className="mt-0">
+                            <h4 className="text-lg font-semibold mb-2 text-center text-white">Your Saved Tunes</h4>
+                            {savedTunes.map((tune, index) => (
+                                <div
+                                    key={index}
+                                    className="card p-4 border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer bg-purple-50 text-white mb-4"
+                                >
+                                    <h3 className="text-xl font-semibold mb-2 text-center">Custom Tune {index + 1}</h3>
+                                    <p className="text-lg text-center font-bold tracking-widest">{tune}</p>
+                                    <div className="flex justify-center space-x-4">
+                                        <button
+                                            className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors duration-300"
+                                            onClick={() => playTune(tune)}
+                                        >
+                                            Preview
+                                        </button>
+                                        <button
+                                            className="px-4 py-2 bg-purple-700 text-white rounded hover:bg-purple-800 transition-colors duration-300"
+                                            onClick={() => {
+                                                setCustomTune(tune);
+                                                startLearning();
+                                            }}
+                                        >
+                                            Learn
+                                        </button>
+                                        <button
+                                            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors duration-300"
+                                            onClick={() => {
+                                                const updatedTunes = savedTunes.filter((_, i) => i !== index);
+                                                setSavedTunes(updatedTunes);
+                                                localStorage.setItem("savedTunes", JSON.stringify(updatedTunes));
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                 </div>
 
                 {/* Right Section: Details & Piano */}
