@@ -4,31 +4,17 @@ import axios from "axios";
 import * as Tone from "tone";
 import Navbar from "./Navbar";
 import Piano from "./Piano";
-import {
-  playC4,
-  playDb4,
-  playD4,
-  playEb4,
-  playE4,
-  playF4,
-  playGb4,
-  playG4,
-  playAb4,
-  playA4,
-  playBb4,
-  playB4,
-  playC5,
-  play,
-  animateKey,
-} from "./tone.fn.js";
+import { animateKey } from "./tone.fn.js";
 
 const Play = () => {
   const [notes, setNotes] = useState("");
-
+  let pastNotes = "";
   useEffect(() => {
+    console.log("Initial Past Notes in useEffect:", pastNotes); // Log at mount
+
     fetchNotes();
     // ! change this to fetchnotes waiting for the noise to finsish inside of each play___ function
-    const interval = setInterval(fetchNotes, 1000);
+    const interval = setInterval(fetchNotes, 300);
     return () => clearInterval(interval);
   }, []);
 
@@ -36,17 +22,30 @@ const Play = () => {
     axios
       .get("http://localhost:8080/get-notes")
       .then((response) => {
+        console.log("Fetched Notes:", response.data);
+        console.log("Past Notes Before Update:", pastNotes);
+        if (!response.data || response.data === pastNotes) {
+          if (!response.data && pastNotes != response.data) {
+            pastNotes = response.data;
+          }
+          return;
+        }
+
         setNotes(response.data); //TODOremove when done testing, for dev ease
+
+        if (response.data != pastNotes) {
+          pastNotes = response.data;
+        }
+
+        console.log("Past Notes After Update:", response.data);
+
         playNotes(response.data); // Play notes when they are received
       })
-      .catch((error) => {
-        console.error("Error fetching notes:", error);
-      });
+      .catch((error) => {});
   };
 
   const playNotes = (notes: string) => {
     if (!notes) {
-      alert("No notes to play. Please fetch notes first.");
       return;
     }
     const noteArray = notes.split(",");
@@ -56,7 +55,7 @@ const Play = () => {
         const synth = new Tone.PolySynth().toDestination();
         synth.triggerAttackRelease(noteNew, "8n");
         animateKey(noteNew);
-      }, 3000);
+      }, 500);
     });
   };
 

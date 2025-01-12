@@ -61,21 +61,41 @@ def draw_pressed_keys(frame, pressed_keys):
 
 
 
+def is_excessively_overlapping(r1, r2):
+    """
+    Checks if two rectangles overlap excessively (>50% of the smaller rectangle's area).
+    """
+    x1, y1, w1, h1 = r1
+    x2, y2, w2, h2 = r2
+
+    # Calculate intersection
+    xi1 = max(x1, x2)
+    yi1 = max(y1, y2)
+    xi2 = min(x1 + w1, x2 + w2)
+    yi2 = min(y1 + h1, y2 + h2)
+
+    if xi1 >= xi2 or yi1 >= yi2:
+        return False  # No overlap
+
+    intersection_area = (xi2 - xi1) * (yi2 - yi1)
+    min_area = min(w1 * h1, w2 * h2)
+    return (intersection_area / min_area) > 0.5
 
 def detect_keyboard(imgOriginal, imgDil):
+    """
+    Detect piano keys in the image and return bounding rectangles of the detected keys.
+    """
     # Find contours and hierarchy
     contours, hierarchy = cv2.findContours(imgDil, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
-    
-    conPoly = [None] * len(contours)  # List to store polygonal approximations
-    boundRect = [None] * len(contours)  # List to store bounding rectangles
 
+    conPoly = []  # List to store polygonal approximations
+    boundRect = []  # List to store bounding rectangles
     detectedKeys = 0
 
     # Iterate through all contours
     for i, contour in enumerate(contours):
         # Check area of each contour to filter out small or large irregularities
         area = cv2.contourArea(contour)
-
         if area < 500 or area > 50000:
             continue
 
@@ -83,34 +103,94 @@ def detect_keyboard(imgOriginal, imgDil):
         if hierarchy[0][i][3] != -1:
             # Polygonal approximation
             peri = cv2.arcLength(contour, True)
-            conPoly[i] = cv2.approxPolyDP(contour, 0.02 * peri, True)
-
-            # Get bounding rectangle
-            boundRect[i] = cv2.boundingRect(conPoly[i])
+            approx = cv2.approxPolyDP(contour, 0.02 * peri, True)
 
             # Assume piano keys are rectangular (4 corners)
-            if len(conPoly[i]) == 4:
-                detectedKeys += 1
+            if len(approx) == 4:
+                # Get bounding rectangle
+                x, y, w, h = cv2.boundingRect(approx)
+                aspect_ratio = h / float(w)
 
-                # Draw the bounding rectangle and label
-                x, y, w, h = boundRect[i]
-                cv2.rectangle(imgOriginal, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                cv2.putText(imgOriginal, "Key", (x, y - 10), cv2.FONT_HERSHEY_PLAIN, 1, (0, 69, 255), 2)
+                # Filter by aspect ratio
+                if 4.2 <= aspect_ratio <= 7.2:
+                    # Check for excessive overlap
+                    excessive_overlap = False
+                    for existing in boundRect:
+                        if is_excessively_overlapping(existing, (x, y, w, h)):
+                            excessive_overlap = True
+                            break
+
+                    # Add rectangle if it doesn't excessively overlap
+                    if not excessive_overlap:
+                        boundRect.append((x, y, w, h))
+                        detectedKeys += 1
+
+                        # Draw the bounding rectangle and label
+                        cv2.rectangle(imgOriginal, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Expected total keys in a single octave piano
     totalKeys = 13
 
-    # Check if all keys are detected
+    # Display detection status
     if detectedKeys < totalKeys:
         cv2.putText(imgOriginal, "Piano not found", (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 3)
     else:
         cv2.putText(imgOriginal, "All keys detected", (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 3)
 
     # Sort the rectangles by their x-coordinate
-    boundRect = [rect for rect in boundRect if rect is not None]  # Remove None values
-    boundRect.sort(key=lambda rect: rect[0])  # Sort by x-coordinate
+    boundRect.sort(key=lambda rect: rect[0])
 
     return boundRect
+
+# def detect_keyboard(imgOriginal, imgDil):
+#     # Find contours and hierarchy
+#     contours, hierarchy = cv2.findContours(imgDil, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+    
+#     conPoly = [None] * len(contours)  # List to store polygonal approximations
+#     boundRect = [None] * len(contours)  # List to store bounding rectangles
+
+#     detectedKeys = 0
+
+#     # Iterate through all contours
+#     for i, contour in enumerate(contours):
+#         # Check area of each contour to filter out small or large irregularities
+#         area = cv2.contourArea(contour)
+
+#         if area < 500 or area > 50000:
+#             continue
+
+#         # Check for nested contours using the hierarchy
+#         if hierarchy[0][i][3] != -1:
+#             # Polygonal approximation
+#             peri = cv2.arcLength(contour, True)
+#             conPoly[i] = cv2.approxPolyDP(contour, 0.02 * peri, True)
+
+#             # Get bounding rectangle
+#             boundRect[i] = cv2.boundingRect(conPoly[i])
+
+#             # Assume piano keys are rectangular (4 corners)
+#             if len(conPoly[i]) == 4:
+#                 detectedKeys += 1
+
+#                 # Draw the bounding rectangle and label
+#                 x, y, w, h = boundRect[i]
+#                 cv2.rectangle(imgOriginal, (x, y), (x + w, y + h), (0, 255, 0), 2)
+#                 cv2.putText(imgOriginal, "Key", (x, y - 10), cv2.FONT_HERSHEY_PLAIN, 1, (0, 69, 255), 2)
+
+#     # Expected total keys in a single octave piano
+#     totalKeys = 13
+
+#     # Check if all keys are detected
+#     if detectedKeys < totalKeys:
+#         cv2.putText(imgOriginal, "Piano not found", (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 3)
+#     else:
+#         cv2.putText(imgOriginal, "All keys detected", (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 3)
+
+#     # Sort the rectangles by their x-coordinate
+#     boundRect = [rect for rect in boundRect if rect is not None]  # Remove None values
+#     boundRect.sort(key=lambda rect: rect[0])  # Sort by x-coordinate
+
+#     return boundRect
 
 # def draw_keyboard(frame, key_position):
     
@@ -129,7 +209,7 @@ def preProcess(img):
 
 
 # Initialize webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 paused = False
 key_position = {}
@@ -167,7 +247,7 @@ if __name__ == "__main__":
             if(len(frozenKeys) == 13):
                 for i in range(len(frozenKeys)):
                     key_position[orderOfKeys[i]] = frozenKeys[i]
-                # print(key_position)
+                print(key_position)
                 paused = True
 
         i = 0
