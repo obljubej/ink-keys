@@ -10,7 +10,7 @@ const Navbar = () => {
         to="/"
         className=""
       >
-        <h1 className="text-3xl font-bold hover:brightness-[150%]">Virtual Keyboard</h1>
+        <h1 className="text-3xl font-bold hover:shadow-md hover:text-gray-300 transition duration-50">Virtual Keyboard</h1>
       </Link>
 
 
