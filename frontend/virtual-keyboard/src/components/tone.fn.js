@@ -66,7 +66,7 @@ export function playC5() {
     synth.triggerAttackRelease("C5", "8n");
     animateKey('C5');
 }
-
+// "C5", "B4", "Bb4", "A4", "Ab4"
 // for the play button feature, not specifically for the virtual keyboard
 export function play() {
     const notes = ["C5", "B4", "Bb4", "A4", "Ab4"];

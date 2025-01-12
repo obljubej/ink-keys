@@ -14,12 +14,12 @@ const Home = () => {
         <p className="text-xl font-light mb-8">Sample text here.</p>
         <div className="flex space-x-6">
           <Link to="/play">
-            <button className="px-8 py-4 bg-blue-600 text-lg font-medium rounded-full hover:bg-blue-700 transition duration-300">
+            <button className="px-8 py-4 bg-pale-100 text-lg font-medium rounded-full hover:bg-pale-150 transition duration-300">
               🎵 Get Started
             </button>
           </Link>
           <Link to="/create">
-            <button className="px-8 py-4 bg-gray-700 text-lg font-medium rounded-full hover:bg-gray-600 transition duration-300">
+            <button className="px-8 py-4 bg-purple-50 text-lg font-medium rounded-full hover:bg-purple-150 transition duration-300">
               ✏️ Create Music
             </button>
           </Link>
@@ -27,7 +27,7 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-8 bg-gray-800">
+      <section className="py-16 px-8 bg-purple-150">
         <h2 className="text-4xl font-bold text-center mb-8">Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           <div>
