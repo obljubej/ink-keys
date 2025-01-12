@@ -40,7 +40,10 @@ const Piano = () => {
             animateKey("Db4");
           }}
         >
-          Db
+          <div className="flex flex-col justify-center items-center space-y-12">
+            <span className="text-lg mb-10">C#</span>
+            <span className="text-sm font-medium mt-14">Db</span>
+          </div>
         </div>
         <div
           className="white-key"
@@ -60,7 +63,10 @@ const Piano = () => {
             animateKey("Eb4");
           }}
         >
-          Eb
+          <div className="flex flex-col justify-center items-center space-y-12">
+            <span className="text-lg mb-10">D#</span>
+            <span className="text-sm font-medium mt-14">Eb</span>
+          </div>
         </div>
         <div
           className="white-key"
@@ -90,7 +96,10 @@ const Piano = () => {
             animateKey("Gb4");
           }}
         >
-          Gb
+          <div className="flex flex-col justify-center items-center space-y-12">
+            <span className="text-lg mb-10">F#</span>
+            <span className="text-sm font-medium mt-14">Gb</span>
+          </div>
         </div>
         <div
           className="white-key"
@@ -110,7 +119,10 @@ const Piano = () => {
             animateKey("Ab4");
           }}
         >
-          Ab
+          <div className="flex flex-col justify-center items-center space-y-12">
+            <span className="text-lg mb-10">G#</span>
+            <span className="text-sm font-medium mt-14">Ab</span>
+          </div>
         </div>
         <div
           className="white-key"
@@ -130,7 +142,10 @@ const Piano = () => {
             animateKey("Bb4");
           }}
         >
-          Bb
+          <div className="flex flex-col justify-center items-center space-y-12">
+            <span className="text-lg mb-10">A#</span>
+            <span className="text-sm font-medium mt-14">Bb</span>
+          </div>
         </div>
         <div
           className="white-key"
@@ -147,7 +162,7 @@ const Piano = () => {
           data-note="C5"
           onClick={() => {
             playC5();
-            // animateKey("C5");
+            animateKey("C5");
           }}
         >
           C
