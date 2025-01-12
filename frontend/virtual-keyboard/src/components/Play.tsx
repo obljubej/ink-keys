@@ -22,7 +22,7 @@ import {
   animateKey,
 } from "./tone.fn.js";
 
-const App = () => {
+const Play = () => {
   const [notes, setNotes] = useState("");
 
   useEffect(() => {
@@ -71,4 +71,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Play;
