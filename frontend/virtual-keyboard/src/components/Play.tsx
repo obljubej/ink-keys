@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import Piano from "./Piano";
 import { animateKey } from "./tone.fn.js";
 
-const App = () => {
+const Play = () => {
   const [notes, setNotes] = useState("");
   let pastNotes = "";
   useEffect(() => {
@@ -38,7 +38,6 @@ const App = () => {
         }
 
         console.log("Past Notes After Update:", response.data);
-
         playNotes(response.data); // Play notes when they are received
       })
       .catch((error) => {});
@@ -70,4 +69,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Play;
