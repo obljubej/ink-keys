@@ -25,7 +25,7 @@ const Play = () => {
         console.log("Fetched Notes:", response.data);
         console.log("Past Notes Before Update:", pastNotes);
         if (!response.data || response.data === pastNotes) {
-          if (!response.data && pastNotes != response.data) {
+          if (!response.data && pastNotes !== response.data) {
             pastNotes = response.data;
           }
           return;
@@ -33,7 +33,7 @@ const Play = () => {
 
         setNotes(response.data); //TODOremove when done testing, for dev ease
 
-        if (response.data != pastNotes) {
+        if (response.data !== pastNotes) {
           pastNotes = response.data;
         }
 
