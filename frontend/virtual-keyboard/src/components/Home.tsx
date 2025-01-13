@@ -11,6 +11,13 @@ const Home = () => {
       <div className="min-h-screen bg-gradient-to-br from-grey via-purple-100 to-purple-100 text-white">
         {/* Hero Section */}
         <section className="flex flex-col items-center justify-center h-screen text-center px-4">
+        <div className="flex justify-center py-8">
+        <img
+          src="/apple-touch-icon.png"
+          alt="Logo"
+          className="w-60 h-60"
+        />
+      </div>
           <h1 className="text-6xl font-extrabold mb-4 drop-shadow-lg font-geist">
             Welcome to Ink-Keys
           </h1>
