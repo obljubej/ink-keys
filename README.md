@@ -34,6 +34,72 @@ The idea for Ink-Keys came from the desire to make music accessible, affordable,
 
 ---
 
+## Steps to Run InkKeys
+
+Follow the steps below to set up and run InkKeys on your machine:
+
+### 1. Clone the Repository
+Download the code from our GitHub repository by running:  
+```bash
+git clone https://github.com/obljubej/ink-keys.git
+```
+
+### 2. Development Environment
+We developed this project using:
+
+- [Python 3.10.0](https://www.python.org/downloads/release/python-3100/)
+- [Node.js v22.13.0](https://nodejs.org/en/download)
+
+Ensure these versions or compatible ones are installed on your system.
+
+### 3. Install Dependencies
+#### Frontend Setup
+Navigate to the frontend folder:
+```bash
+cd virtual-keyboard/frontend/virtual-keyboard
+```
+Install the necessary dependencies using npm:
+```bash
+npm install
+```
+#### Backend Setup
+Navigate to the backend folder:
+```bash
+cd virtual-keyboard/backend
+```
+Install the Python dependencies:
+```bash
+pip install opencv-python numpy mediapipe flask flask-cors opencv-python-headless
+```
+
+### 4. Running the Project
+#### Start the Backend
+Open a terminal and navigate to the backend folder:
+```bash
+cd virtual-keyboard/backend
+```
+Run the backend server:
+```bash
+python main.py
+```
+#### Start the Frontend
+Open a separate terminal and navigate to the frontend folder:
+```bash
+cd virtual-keyboard/frontend/virtual-keyboard
+```
+Start the frontend server:
+```bash
+npm start
+```
+
+### 5. Using InkKeys
+1. Place the keyboard paper you want to play on in view of your camera.
+2. Open the site in your browser (usually available at http://localhost:3000).
+3. Use the Spacebar to adjust the keys if necessary.
+4. Start playing your virtual keyboard!
+
+---
+
 ## **Challenges We Ran Into**
 
 - **Real-time Integration**: The initial system of constantly pinging the backend was inefficient, so we switched to a **Flask SocketIO stream** for real-time updates.
